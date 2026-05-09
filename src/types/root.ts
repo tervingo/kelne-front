@@ -1,21 +1,17 @@
+import type { Word } from './word'
+
 export type Degree = 'normal' | 'fuerte' | 'largo'
 export type WordType = 'nombre' | 'verbo'
 export type Voice = 'activa' | 'media'
 export type Conjugation = 'agentiva' | 'receptiva'
 
-export interface DerivedWord {
-  word: string
-  translation: string
-  wordClass: string  // clase de declinación (nombre) o conjugación (verbo)
-}
-
 export interface Base {
   degree: Degree
   type: WordType
-  voice?: Voice          // solo si type === 'verbo'
-  conjugation?: Conjugation  // solo si type === 'verbo'
+  voice?: Voice
+  conjugation?: Conjugation
   translation: string
-  derivedWords: DerivedWord[]
+  derivedWords: Word[]   // populated Word objects from API
 }
 
 export interface Root {
@@ -23,8 +19,13 @@ export interface Root {
   root: string
   notes?: string
   bases: Base[]
-  createdAt?: string
-  updatedAt?: string
+}
+
+// Returned by GET /api/roots (list) — no bases detail
+export interface RootListItem {
+  _id: string
+  root: string
+  notes?: string
 }
 
 // Clave única para identificar una base dentro de una raíz

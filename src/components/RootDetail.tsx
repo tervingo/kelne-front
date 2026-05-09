@@ -138,6 +138,7 @@ function RootForm({ root, onCreated }: FormProps) {
           key={baseKeyStr(selectedBaseKey)}
           selectedKey={selectedBaseKey}
           base={selectedBase}
+          rootId={root?._id}
           onSave={handleBaseSave}
         />
       )}
