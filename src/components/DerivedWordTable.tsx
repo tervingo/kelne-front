@@ -5,10 +5,10 @@ import { NOMBRE_CLASES, wordBadge } from '../types/word'
 import { useWordSearch, useCreateWord } from '../hooks/useWords'
 
 interface Props {
-  words:    Word[]
-  baseKey:  BaseKey
-  rootId?:  string
-  onChange: (words: Word[]) => void
+  words:     Word[]
+  baseKey:   BaseKey
+  rootName?: string
+  onChange:  (words: Word[]) => void
 }
 
 function inferFromBase(k: BaseKey): {
@@ -24,7 +24,7 @@ function inferFromBase(k: BaseKey): {
 
 const TD = 'border border-stone-700 px-2 py-1.5 bg-stone-900 text-stone-200 text-xs'
 
-export default function DerivedWordTable({ words, baseKey, rootId, onChange }: Props) {
+export default function DerivedWordTable({ words, baseKey, rootName, onChange }: Props) {
   const [search,      setSearch]      = useState('')
   const [showDropdown, setDropdown]   = useState(false)
   const [showForm,    setShowForm]    = useState(false)
@@ -71,7 +71,7 @@ export default function DerivedWordTable({ words, baseKey, rootId, onChange }: P
         kelne: form.kelne.trim(),
         trad:  form.trad.trim(),
         clase: form.clase.trim() || undefined,
-        raiz:  rootId,
+        raiz:  rootName,
       },
       {
         onSuccess: newWord => {

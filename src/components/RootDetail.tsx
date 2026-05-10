@@ -99,9 +99,14 @@ function RootForm({ root, onCreated }: FormProps) {
           <input
             type="text"
             value={rootName}
-            onChange={e => setRootName(e.target.value)}
+            onChange={e => !root && setRootName(e.target.value)}
+            readOnly={!!root}
             placeholder="raíz..."
-            className="w-full px-3 py-1.5 text-sm border border-stone-700 rounded-md bg-stone-800 text-stone-100 placeholder-stone-600 focus:outline-none focus:ring-1 focus:ring-stone-500 font-mono"
+            className={`w-full px-3 py-1.5 text-sm border border-stone-700 rounded-md text-stone-100 placeholder-stone-600 focus:outline-none font-mono ${
+              root
+                ? 'bg-stone-900 cursor-default text-stone-300'
+                : 'bg-stone-800 focus:ring-1 focus:ring-stone-500'
+            }`}
           />
         </div>
         <div className="flex-1">
@@ -138,7 +143,7 @@ function RootForm({ root, onCreated }: FormProps) {
           key={baseKeyStr(selectedBaseKey)}
           selectedKey={selectedBaseKey}
           base={selectedBase}
-          rootId={root?._id}
+          rootName={rootName}
           onSave={handleBaseSave}
         />
       )}

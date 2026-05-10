@@ -5,7 +5,7 @@ import DerivedWordTable from './DerivedWordTable'
 interface Props {
   selectedKey: BaseKey
   base:        Base | undefined
-  rootId?:     string
+  rootName?:   string
   onSave:      (base: Base) => void
 }
 
@@ -21,7 +21,7 @@ function keyLabel(key: BaseKey): string {
   return parts.join(' · ')
 }
 
-export default function BaseEditor({ selectedKey, base, rootId, onSave }: Props) {
+export default function BaseEditor({ selectedKey, base, rootName, onSave }: Props) {
   const [translation, setTranslation] = useState(base?.translation ?? '')
   const [words, setWords] = useState(base?.derivedWords ?? [])
 
@@ -55,7 +55,7 @@ export default function BaseEditor({ selectedKey, base, rootId, onSave }: Props)
         />
       </div>
 
-      <DerivedWordTable words={words} baseKey={selectedKey} rootId={rootId} onChange={setWords} />
+      <DerivedWordTable words={words} baseKey={selectedKey} rootName={rootName} onChange={setWords} />
 
       <div className="flex justify-end">
         <button

@@ -9,7 +9,7 @@ function serializeBase(b: Base) {
     voice:       b.voice,
     conjugation: b.conjugation,
     translation: b.translation,
-    derivedWords: b.derivedWords.map(w => w._id!).filter(Boolean),
+    derivedWords: b.derivedWords.map(w => ({ kelne: w.kelne, cat: w.cat })),
   }
 }
 
