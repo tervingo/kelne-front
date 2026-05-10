@@ -80,7 +80,23 @@ export default function BaseGrid({ bases, selectedKey, onSelect }: Props) {
                     }`}
                   >
                     {base ? (
-                      <span className="block truncate max-w-[96px] mx-auto">{base.translation}</span>
+                      <div className="space-y-1">
+                        <span className="block truncate max-w-[96px] mx-auto">{base.translation}</span>
+                        {base.derivedWords.length > 0 && (
+                          <div className="space-y-0.5">
+                            {base.derivedWords.slice(0, 3).map((w, i) => (
+                              <span key={i} className="block truncate max-w-[120px] mx-auto text-[11px] text-stone-300">
+                                <span className="font-mono">{w.kelne}</span>
+                                <span className="text-stone-600"> = </span>
+                                {w.trad}
+                              </span>
+                            ))}
+                            {base.derivedWords.length > 3 && (
+                              <span className="block text-[12px] text-stone-300">…</span>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     ) : (
                       '—'
                     )}

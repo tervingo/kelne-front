@@ -1,6 +1,6 @@
 export type WordCat = 'N' | 'V' | 'PN' | 'DT' | 'AV' | 'AF' | 'CJ' | 'PT'
 
-export type NombreTipo = 'P' | 'R' | 'DN' | 'DL' | 'DF'
+export type NombreTipo = 'P' | 'R' | 'C' | 'DN' | 'DL' | 'DF'
 export type VerboTipo  = 'ND' | 'DN' | 'DL' | 'DF'
 export type AfijoTipo  = 'P' | 'S'
 
@@ -22,6 +22,7 @@ export const WORD_CAT_LABELS: Record<WordCat, string> = {
 export const NOMBRE_TIPO_LABELS: Record<NombreTipo, string> = {
   P:  'Primario',
   R:  'Radical',
+  C:  'Compuesto',
   DN: 'Deriv. normal',
   DL: 'Deriv. largo',
   DF: 'Deriv. fuerte',
@@ -52,7 +53,7 @@ export interface Word {
   com?:   string
   tipo?:  string   // NombreTipo | VerboTipo | AfijoTipo
   clase?: string
-  raiz?:  string   // _id de la raíz asociada
+  raiz?:  string | string[]  // string para simples, array para compuestos (tipo C)
   voz?:   Voz
   alin?:  Alin
 }

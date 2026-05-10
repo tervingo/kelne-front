@@ -82,7 +82,7 @@ export default function App() {
 
           {section === 'words' && (
             selectedWordId
-              ? <WordEditor key={selectedWordId} wordId={selectedWordId} onCreated={handleWordCreated} />
+              ? <WordEditor key={selectedWordId} wordId={selectedWordId} onCreated={handleWordCreated} onDeleted={() => setSelectedWordId(null)} />
               : <p className="text-stone-500 text-sm mt-2">Selecciona una palabra o crea una nueva.</p>
           )}
 
