@@ -59,11 +59,11 @@ export default function WordList({ selectedId, onSelect }: Props) {
                 : 'hover:bg-stone-800 text-stone-300'
             }`}
           >
-            <span className="text-sm font-mono block">{word.kelne}</span>
-            <span className="text-xs text-stone-500 flex items-center gap-1.5">
+            <span className="text-base font-mono block">{word.kelne}</span>
+            <span className="text-xs text-stone-300 flex items-center gap-1.5">
               <span>{word.trad}</span>
               <span className="text-stone-700">·</span>
-              <span className="text-stone-600">{wordBadge(word)}</span>
+              <span className="text-stone-400">{wordBadge(word)}</span>
             </span>
           </button>
         ))}

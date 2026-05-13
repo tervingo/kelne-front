@@ -6,6 +6,8 @@ import {
 } from '../types/word'
 import { useWord, useCreateWord, useUpdateWord, useDeleteWord } from '../hooks/useWords'
 import { useRoots } from '../hooks/useRoots'
+import NounDeclension from './NounDeclension'
+import { NOMBRE_CLASS_DEFS } from '../data/declension'
 
 interface Props {
   wordId:     string | 'new'
@@ -41,6 +43,8 @@ interface FormProps {
 }
 
 const CATS: WordCat[] = ['N', 'V', 'PN', 'DT', 'AV', 'AF', 'CJ', 'PT']
+// V excluded from creation — verbs are created via the root editor
+const CATS_CREATE: WordCat[] = ['N', 'PN', 'DT', 'AV', 'AF', 'CJ', 'PT']
 
 const INPUT  = 'w-full px-3 py-1.5 text-sm border border-stone-700 rounded-md bg-stone-800 text-stone-100 placeholder-stone-600 focus:outline-none focus:ring-1 focus:ring-stone-500'
 const SELECT = `${INPUT} cursor-pointer`
@@ -53,11 +57,14 @@ function WordForm({ word, onCreated, onDeleted }: FormProps) {
 
   const [confirmDelete, setConfirmDelete] = useState(false)
 
-  const [cat,   setCat]   = useState<WordCat>(word?.cat   ?? 'N')
+  const isCreating = !word
+
+  const [cat,   setCat]   = useState<WordCat>(word?.cat ?? 'N')
   const [kelne, setKelne] = useState(word?.kelne ?? '')
   const [trad,  setTrad]  = useState(word?.trad  ?? '')
   const [com,   setCom]   = useState(word?.com   ?? '')
-  const [tipo,  setTipo]  = useState(word?.tipo  ?? '')
+  // When creating a new N, tipo is always P — initialise accordingly
+  const [tipo,  setTipo]  = useState(word?.tipo  ?? (isCreating ? 'P' : ''))
   const [clase, setClase] = useState(word?.clase ?? '')
   const [voz,   setVoz]   = useState(word?.voz   ?? '')
   const [alin,  setAlin]  = useState(word?.alin  ?? '')
@@ -76,12 +83,19 @@ function WordForm({ word, onCreated, onDeleted }: FormProps) {
   const { data: rootSuggestions = [] } = useRoots(rootSearch || undefined)
   const isPending = createWord.isPending || updateWord.isPending || deleteWord.isPending
 
+  function handleCatChange(newCat: WordCat) {
+    setCat(newCat)
+    // When creating: N is always tipo P, other cats reset tipo
+    if (isCreating) setTipo(newCat === 'N' ? 'P' : '')
+  }
+
   function handleDelete() {
     if (!word?._id) return
     deleteWord.mutate(word._id, { onSuccess: () => onDeleted?.() })
   }
 
-  const needsRoot   = cat === 'N' || cat === 'V'
+  // N tipo P has no associated root; compound is handled separately
+  const needsRoot   = (cat === 'N' && tipo !== 'P' && tipo !== '') || cat === 'V'
   const isVerb      = cat === 'V'
   const isNombre    = cat === 'N'
   const isAfijo     = cat === 'AF'
@@ -115,15 +129,29 @@ function WordForm({ word, onCreated, onDeleted }: FormProps) {
     }
   }
 
+  const showDeclension = !!word && cat === 'N' && !!clase && clase in NOMBRE_CLASS_DEFS
+
   return (
     <div className="space-y-5">
+
+      {/* ── Aviso modo creación ───────────────────────────────────────── */}
+      {isCreating && (
+        <p className="text-xs text-stone-500 bg-stone-800/60 border border-stone-700 rounded-md px-3 py-2">
+          Desde aquí solo se pueden crear nombres primarios (N·P) sin raíz.
+          Los Ns derivados, compuestos y los Vs se crean desde el editor de raíces.
+        </p>
+      )}
 
       {/* ── Campos comunes ────────────────────────────────────────────── */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 items-end">
         <div>
           <label className={LABEL}>Categoría *</label>
-          <select value={cat} onChange={e => setCat(e.target.value as WordCat)} className={SELECT}>
-            {CATS.map(c => (
+          <select
+            value={cat}
+            onChange={e => handleCatChange(e.target.value as WordCat)}
+            className={SELECT}
+          >
+            {(isCreating ? CATS_CREATE : CATS).map(c => (
               <option key={c} value={c}>{c} — {WORD_CAT_LABELS[c]}</option>
             ))}
           </select>
@@ -146,12 +174,21 @@ function WordForm({ word, onCreated, onDeleted }: FormProps) {
           <div>
             <label className={LABEL}>Tipo *</label>
             {isNombre && (
-              <select value={tipo} onChange={e => setTipo(e.target.value)} className={SELECT}>
-                <option value="">—</option>
-                {(Object.keys(NOMBRE_TIPO_LABELS) as (keyof typeof NOMBRE_TIPO_LABELS)[]).map(k => (
-                  <option key={k} value={k}>{k} — {NOMBRE_TIPO_LABELS[k]}</option>
-                ))}
-              </select>
+              isCreating ? (
+                /* Locked to P when creating */
+                <input
+                  readOnly
+                  value="P — Primario"
+                  className={`${INPUT} cursor-default text-stone-400`}
+                />
+              ) : (
+                <select value={tipo} onChange={e => setTipo(e.target.value)} className={SELECT}>
+                  <option value="">—</option>
+                  {(Object.keys(NOMBRE_TIPO_LABELS) as (keyof typeof NOMBRE_TIPO_LABELS)[]).map(k => (
+                    <option key={k} value={k}>{k} — {NOMBRE_TIPO_LABELS[k]}</option>
+                  ))}
+                </select>
+              )
             )}
             {isVerb && (
               <select value={tipo} onChange={e => setTipo(e.target.value)} className={SELECT}>
@@ -366,6 +403,13 @@ function WordForm({ word, onCreated, onDeleted }: FormProps) {
           {isPending && !deleteWord.isPending ? 'Guardando…' : 'Guardar'}
         </button>
       </div>
+
+      {/* ── Declinación ───────────────────────────────────────────────── */}
+      {showDeclension && (
+        <div className="border-t border-stone-700 pt-5">
+          <NounDeclension kelne={word!.kelne} clase={clase} />
+        </div>
+      )}
 
     </div>
   )
