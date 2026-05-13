@@ -102,6 +102,24 @@ export const NOMBRE_CLASS_DEFS: Record<string, NombreClassDef> = {
     ],
   },
 
+  AH3: {
+    label: 'AH3',
+    extractBase: stripSuffix('jas'),
+    cases: [
+      { case: 'ABS', sg: 'ja',   pl: 'jái'                     },
+      { case: 'AGE', sg: 'jas',  pl: 'jáis'                    },
+      { case: 'GEN', sg: 'jen',  pl: 'jáin'                    },
+      { case: 'ABL', sg: 'jat',  pl: 'jáit'                    },
+      { case: 'DAT', sg: 'jana', pl: 'jarna'                   },
+      { case: 'LOC', sg: 'jala', pl: 'jarla'                   },
+      { case: 'INS', sg: 'jake', pl: 'jarke'                   },
+      { case: 'COM', sg: 'jale', pl: 'jarle'                   },
+      { case: 'ADE', sg: 'jane', pl: 'jarne'                   },
+      { case: 'RES', sg: 'java', pl: 'jarva'                   },
+      { case: 'PAR', sg: 'jja',  pl: null                      },
+    ],
+  },
+
   AA1: {
     label: 'AA1',
     extractBase: stripSuffix('as'),
@@ -109,6 +127,24 @@ export const NOMBRE_CLASS_DEFS: Record<string, NombreClassDef> = {
       { case: 'ABS', sg: 'a',      pl: 'ar'                    },
       { case: 'AGE', sg: 'as',     pl: '(a)ras'                },
       { case: 'GEN', sg: 'in',     pl: 'arin',   mutateSg: true},
+      { case: 'ABL', sg: 'at',     pl: '(a)rat'                },
+      { case: 'DAT', sg: '(a)na',  pl: 'arna'                  },
+      { case: 'LOC', sg: 'la',     pl: 'arla'                  },
+      { case: 'INS', sg: '(a)ke',  pl: 'arke'                  },
+      { case: 'COM', sg: 'le',     pl: 'arle'                  },
+      { case: 'ADE', sg: '(a)ne',  pl: 'arne'                  },
+      { case: 'RES', sg: '(a)va',  pl: 'arva'                  },
+      { case: 'PAR', sg: 'ja',     pl: null                    },
+    ],
+  },
+
+  AA2: {
+    label: 'AA2',
+    extractBase: stripSuffix('as'),
+    cases: [
+      { case: 'ABS', sg: 'a',      pl: 'ar'                    },
+      { case: 'AGE', sg: 'as',     pl: '(a)ras'                },
+      { case: 'GEN', sg: 'in',     pl: 'arin',                 },
       { case: 'ABL', sg: 'at',     pl: '(a)rat'                },
       { case: 'DAT', sg: '(a)na',  pl: 'arna'                  },
       { case: 'LOC', sg: 'la',     pl: 'arla'                  },
