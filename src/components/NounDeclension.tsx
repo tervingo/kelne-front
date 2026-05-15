@@ -35,7 +35,7 @@ export default function NounDeclension({ kelne, clase }: Props) {
               <tr key={row.case}>
                 <td className={TD_CASE}>{row.case}</td>
                 <td className={`${row.sgMut ? TD_MUT : TD} text-center`}>{row.sg}</td>
-                <td className={`${row.plMut ? TD_MUT : TD} text-center text-stone-400`}>
+                <td className={`${row.plMut ? TD_MUT : TD} text-center`}>
                   {row.pl ?? '—'}
                 </td>
               </tr>
