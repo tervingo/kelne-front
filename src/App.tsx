@@ -25,7 +25,7 @@ export default function App() {
     <div className="flex h-screen">
 
       {/* ── Sidebar ──────────────────────────────────────────────────────── */}
-      <aside className="w-64 shrink-0 border-r border-stone-700 bg-stone-900 flex flex-col">
+      <aside className="w-96 shrink-0 border-r border-stone-700 bg-stone-900 flex flex-col">
 
         {/* Header */}
         <div className="px-4 py-4 border-b border-stone-700">

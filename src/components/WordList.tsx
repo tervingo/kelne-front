@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useWords } from '../hooks/useWords'
-import { WORD_CAT_LABELS, wordBadge } from '../types/word'
+import { WORD_CAT_LABELS } from '../types/word'
 import type { WordCat } from '../types/word'
 
 interface Props {
@@ -49,24 +49,24 @@ export default function WordList({ selectedId, onSelect }: Props) {
             {search || catFilter ? 'Sin resultados.' : 'Sin palabras todavía.'}
           </p>
         )}
-        {words.map(word => (
-          <button
-            key={word._id}
-            onClick={() => onSelect(word._id!)}
-            className={`w-full text-left px-3 py-2 rounded-md transition-colors ${
-              selectedId === word._id
-                ? 'bg-stone-700 font-medium text-stone-100'
-                : 'hover:bg-stone-800 text-stone-300'
-            }`}
-          >
-            <span className="text-base font-mono block">{word.kelne}</span>
-            <span className="text-xs text-stone-300 flex items-center gap-1.5">
-              <span>{word.trad}</span>
-              <span className="text-stone-700">·</span>
-              <span className="text-stone-400">{wordBadge(word)}</span>
-            </span>
-          </button>
-        ))}
+        <div className="grid grid-cols-2 gap-1">
+          {words.map(word => (
+            <button
+              key={word._id}
+              onClick={() => onSelect(word._id!)}
+              className={`text-left px-2 py-1.5 rounded-md transition-colors min-w-0 ${
+                selectedId === word._id
+                  ? 'bg-stone-700 font-medium text-stone-100'
+                  : 'hover:bg-stone-800 text-stone-300'
+              }`}
+            >
+              <span className="block font-mono text-sm truncate">{word.kelne}</span>
+              <span className="block text-xs text-stone-400 truncate">
+                <span className="text-stone-400 mr-1">{word.cat}</span>{word.trad}
+              </span>
+            </button>
+          ))}
+        </div>
       </div>
     </>
   )
