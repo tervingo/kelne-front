@@ -29,8 +29,8 @@ export default function App() {
 
         {/* Header */}
         <div className="px-4 py-4 border-b border-stone-700">
-          <h1 className="text-2xl font-semibold tracking-tight text-orange-500">Kelnena</h1>
-          <p className="text-lg text-stone-500 mt-0.5 text-orange-300">Taulnen seiksokyndosivas</p>
+          <h1 className="text-2xl font-semibold tracking-tight text-orange-500">Kelne</h1>
+          <p className="text-lg mt-0.5 text-orange-400">Taulnen seiksokyndosivas</p>
         </div>
 
         {/* Tabs */}
