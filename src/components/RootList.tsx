@@ -44,7 +44,7 @@ export default function RootList({ selectedId, onSelect }: Props) {
               >
                 <span className="block font-mono truncate">{root.root}</span>
                 {root.notes && (
-                  <span className="block text-xs text-stone-500 truncate">{root.notes}</span>
+                  <span className="block text-xs text-stone-400 truncate">{root.notes}</span>
                 )}
               </button>
             ))}

@@ -4,7 +4,7 @@ export type NombreTipo = 'P' | 'R' | 'C' | 'DN' | 'DL' | 'DF'
 export type VerboTipo  = 'ND' | 'DN' | 'DL' | 'DF'
 export type AfijoTipo  = 'P' | 'S'
 
-export type NombreClase = 'AH1' | 'AH2' | 'AA1' | 'UC' | 'V1' | 'V2' | 'C1' | 'I1'
+export type NombreClase = 'AH1' | 'AH2' | 'AA1' | 'AA2' | 'UC' | 'V1' | 'V2' | 'C1' | 'I1'
 export type Voz  = 'A' | 'M'
 export type Alin = 'AGT' | 'RCT'
 
@@ -40,7 +40,7 @@ export const AFIJO_TIPO_LABELS: Record<AfijoTipo, string> = {
   S: 'Sufijo',
 }
 
-export const NOMBRE_CLASES: NombreClase[] = ['AH1', 'AH2', 'AA1', 'UC', 'V1', 'V2', 'C1', 'I1']
+export const NOMBRE_CLASES: NombreClase[] = ['AH1', 'AH2', 'AA1', 'AA2', 'UC', 'V1', 'V2', 'C1', 'I1']
 
 export const VOZ_LABELS: Record<Voz, string>  = { A: 'activa', M: 'media' }
 export const ALIN_LABELS: Record<Alin, string> = { AGT: 'agentiva', RCT: 'receptiva' }

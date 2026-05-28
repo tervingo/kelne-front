@@ -161,9 +161,9 @@ export const NOMBRE_CLASS_DEFS: Record<string, NombreClassDef> = {
     extractBase: stripSuffix('as'),
     cases: [
       { case: 'ABS', sg: 'a',      pl: 'ar'                    },
-      { case: 'AGE', sg: 'as',     pl: '(a)ras'                },
-      { case: 'GEN', sg: 'in',     pl: 'arin',                 },
-      { case: 'ABL', sg: 'at',     pl: '(a)rat'                },
+      { case: 'AGE', sg: 'as',     pl: 'aras'                },
+      { case: 'GEN', sg: 'en',     pl: 'arin',                 },
+      { case: 'ABL', sg: 'at',     pl: 'arat'                },
       { case: 'DAT', sg: 'na',     pl: 'arna'                  },
       { case: 'LOC', sg: 'la',     pl: 'arla'                  },
       { case: 'INS', sg: 'ke',     pl: 'arke'                  },
