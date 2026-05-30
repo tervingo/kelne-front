@@ -10,9 +10,28 @@ export default function App() {
   const [section,        setSection]        = useState<Section>('roots')
   const [selectedRootId, setSelectedRootId] = useState<string | null>(null)
   const [selectedWordId, setSelectedWordId] = useState<string | null>(null)
+  const [exporting,      setExporting]      = useState(false)
 
   function handleRootCreated(id: string) { setSelectedRootId(id) }
   function handleWordCreated(id: string) { setSelectedWordId(id) }
+
+  async function exportDictionary() {
+    setExporting(true)
+    try {
+      const res = await fetch('/api/dictionary/pdf')
+      if (!res.ok) throw new Error(`Error ${res.status}`)
+      const dbx = res.headers.get('X-Dropbox-Status') ?? 'skipped'
+      if (dbx === 'ok') {
+        alert('Diccionario generado y subido a Dropbox.')
+      } else if (dbx === 'skipped') {
+        alert('Dropbox no configurado.')
+      } else {
+        alert(`Error Dropbox: ${dbx}`)
+      }
+    } finally {
+      setExporting(false)
+    }
+  }
 
   const TAB = (active: boolean) =>
     `flex-1 py-2 text-xs font-medium transition-colors ${
@@ -49,8 +68,8 @@ export default function App() {
           : <WordList selectedId={selectedWordId} onSelect={setSelectedWordId} />
         }
 
-        {/* New button */}
-        <div className="p-3 border-t border-stone-700 shrink-0">
+        {/* New button + export */}
+        <div className="p-3 border-t border-stone-700 shrink-0 space-y-2">
           {section === 'roots' ? (
             <button
               onClick={() => setSelectedRootId('new')}
@@ -66,6 +85,13 @@ export default function App() {
               + Nueva palabra
             </button>
           )}
+          <button
+            onClick={exportDictionary}
+            disabled={exporting}
+            className="w-full text-xs px-3 py-1.5 rounded-md border border-stone-700 text-stone-500 hover:text-stone-300 hover:border-stone-600 transition-colors disabled:opacity-40"
+          >
+            {exporting ? 'Generando PDF…' : '↓ Exportar diccionario'}
+          </button>
         </div>
 
       </aside>
