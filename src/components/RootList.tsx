@@ -31,7 +31,7 @@ export default function RootList({ selectedId, onSelect }: Props) {
           </p>
         )}
         {roots && (
-          <div className="grid grid-cols-2 gap-1">
+          <div className="grid grid-cols-3 gap-1">
             {roots.map(root => (
               <button
                 key={root._id}
