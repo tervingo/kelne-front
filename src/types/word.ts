@@ -1,4 +1,4 @@
-export type WordCat = 'N' | 'V' | 'PN' | 'DT' | 'AV' | 'AF' | 'CJ' | 'PT'
+export type WordCat = 'N' | 'V' | 'PN' | 'DT' | 'NU' | 'AV' | 'AF' | 'CJ' | 'PT'
 
 export type NombreTipo = 'P' | 'R' | 'C' | 'DN' | 'DL' | 'DF'
 export type VerboTipo  = 'ND' | 'DN' | 'DL' | 'DF'
@@ -13,6 +13,7 @@ export const WORD_CAT_LABELS: Record<WordCat, string> = {
   V:  'Verbo',
   PN: 'Pronombre',
   DT: 'Determinante',
+  NU: 'Numeral',
   AV: 'Adverbio',
   AF: 'Afijo',
   CJ: 'Conjunción',

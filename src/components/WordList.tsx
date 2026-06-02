@@ -8,7 +8,7 @@ interface Props {
   onSelect:   (id: string) => void
 }
 
-const CATS: WordCat[] = ['N', 'V', 'PN', 'DT', 'AV', 'AF', 'CJ', 'PT']
+const CATS: WordCat[] = ['N', 'V', 'PN', 'DT', 'NU', 'AV', 'AF', 'CJ', 'PT']
 
 export default function WordList({ selectedId, onSelect }: Props) {
   const [search,  setSearch]  = useState('')
@@ -49,7 +49,7 @@ export default function WordList({ selectedId, onSelect }: Props) {
             {search || catFilter ? 'Sin resultados.' : 'Sin palabras todavía.'}
           </p>
         )}
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-3 gap-1">
           {words.map(word => (
             <button
               key={word._id}

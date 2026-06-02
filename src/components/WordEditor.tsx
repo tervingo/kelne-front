@@ -42,9 +42,9 @@ interface FormProps {
   onDeleted?: () => void
 }
 
-const CATS: WordCat[] = ['N', 'V', 'PN', 'DT', 'AV', 'AF', 'CJ', 'PT']
+const CATS: WordCat[] = ['N', 'V', 'PN', 'DT', 'NU', 'AV', 'AF', 'CJ', 'PT']
 // V excluded from creation — verbs are created via the root editor
-const CATS_CREATE: WordCat[] = ['N', 'PN', 'DT', 'AV', 'AF', 'CJ', 'PT']
+const CATS_CREATE: WordCat[] = ['N', 'PN', 'DT', 'NU', 'AV', 'AF', 'CJ', 'PT']
 
 const INPUT  = 'w-full px-3 py-1.5 text-sm border border-stone-700 rounded-md bg-stone-800 text-stone-100 placeholder-stone-600 focus:outline-none focus:ring-1 focus:ring-stone-500'
 const SELECT = `${INPUT} cursor-pointer`
