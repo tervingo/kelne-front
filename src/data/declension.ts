@@ -277,6 +277,55 @@ export const NOMBRE_CLASS_DEFS: Record<string, NombreClassDef> = {
 
 }
 
+// ── Pronoun declension ────────────────────────────────────────────────────────
+// Pronouns have a single form per case (no SG/PL distinction).
+
+export interface PronounCaseDef {
+  case:  NombreCase
+  desin: string
+}
+
+export interface PronounClassDef {
+  label:       string
+  extractBase: (kelne: string) => string
+  cases:       PronounCaseDef[]
+}
+
+export interface PronounDeclRow {
+  case: NombreCase
+  form: string
+}
+
+export const PRONOUN_CLASS_DEFS: Record<string, PronounClassDef> = {
+
+  // Pronombres con referente humano animado, acabados en -as
+  H: {
+    label: 'H',
+    extractBase: stripSuffix('as'),
+    cases: [
+      { case: 'ABS', desin: 'a'   },
+      { case: 'AGE', desin: 'as'  },
+      { case: 'GEN', desin: 'in'  },
+      { case: 'ABL', desin: 'at'  },
+      { case: 'DAT', desin: 'u'   },
+      { case: 'LOC', desin: 'ala' },
+      { case: 'INS', desin: 'ake' },
+      { case: 'COM', desin: 'ale' },
+      { case: 'ADE', desin: 'ane' },
+      { case: 'RES', desin: 'ava' },
+      { case: 'PAR', desin: 'aja' },
+    ],
+  },
+
+}
+
+export function buildPronounDeclension(kelne: string, clase: string): PronounDeclRow[] | null {
+  const def = PRONOUN_CLASS_DEFS[clase]
+  if (!def) return null
+  const base = def.extractBase(kelne)
+  return def.cases.map(row => ({ case: row.case, form: base + row.desin }))
+}
+
 // ── Main function ─────────────────────────────────────────────────────────────
 
 export function buildDeclension(kelne: string, clase: string): DeclRow[] | null {

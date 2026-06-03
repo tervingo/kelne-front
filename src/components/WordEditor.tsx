@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import type { Word, WordCat } from '../types/word'
 import {
-  WORD_CAT_LABELS, NOMBRE_CLASES, NOMBRE_TIPO_LABELS,
+  WORD_CAT_LABELS, NOMBRE_CLASES, PRONOMBRE_CLASES, NOMBRE_TIPO_LABELS,
   VERBO_TIPO_LABELS, AFIJO_TIPO_LABELS, VOZ_LABELS, ALIN_LABELS,
 } from '../types/word'
 import { useWord, useCreateWord, useUpdateWord, useDeleteWord } from '../hooks/useWords'
 import { useRoots } from '../hooks/useRoots'
-import NounDeclension from './NounDeclension'
-import { NOMBRE_CLASS_DEFS } from '../data/declension'
+import NounDeclension    from './NounDeclension'
+import PronounDeclension from './PronounDeclension'
+import { NOMBRE_CLASS_DEFS, PRONOUN_CLASS_DEFS } from '../data/declension'
 
 interface Props {
   wordId:     string | 'new'
@@ -129,7 +130,8 @@ function WordForm({ word, onCreated, onDeleted }: FormProps) {
     }
   }
 
-  const showDeclension = !!word && cat === 'N' && !!clase && clase in NOMBRE_CLASS_DEFS
+  const showDeclension        = !!word && cat === 'N'  && !!clase && clase in NOMBRE_CLASS_DEFS
+  const showPronounDeclension = !!word && cat === 'PN' && !!clase && clase in PRONOUN_CLASS_DEFS
 
   return (
     <div className="space-y-5">
@@ -208,7 +210,7 @@ function WordForm({ word, onCreated, onDeleted }: FormProps) {
             )}
           </div>
 
-          {/* clase */}
+          {/* clase (nombres y verbos) */}
           {(isNombre || isVerb) && (
             <div>
               <label className={LABEL}>Clase {isNombre ? '*' : ''}</label>
@@ -246,6 +248,19 @@ function WordForm({ word, onCreated, onDeleted }: FormProps) {
               </div>
             </>
           )}
+        </div>
+      )}
+
+      {/* ── Clase (pronombres) ───────────────────────────────────────── */}
+      {cat === 'PN' && (
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div>
+            <label className={LABEL}>Clase</label>
+            <select value={clase} onChange={e => setClase(e.target.value)} className={SELECT}>
+              <option value="">—</option>
+              {PRONOMBRE_CLASES.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+          </div>
         </div>
       )}
 
@@ -408,6 +423,11 @@ function WordForm({ word, onCreated, onDeleted }: FormProps) {
       {showDeclension && (
         <div className="border-t border-stone-700 pt-5">
           <NounDeclension kelne={word!.kelne} clase={clase} />
+        </div>
+      )}
+      {showPronounDeclension && (
+        <div className="border-t border-stone-700 pt-5">
+          <PronounDeclension kelne={word!.kelne} clase={clase} />
         </div>
       )}
 

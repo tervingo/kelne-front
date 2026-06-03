@@ -4,7 +4,10 @@ export type NombreTipo = 'P' | 'R' | 'C' | 'DN' | 'DL' | 'DF'
 export type VerboTipo  = 'ND' | 'DN' | 'DL' | 'DF'
 export type AfijoTipo  = 'P' | 'S'
 
-export type NombreClase = 'AH1' | 'AH2' | 'AA1' | 'AA2' | 'UC' | 'V1' | 'V2' | 'C1' | 'I1'
+export type NombreClase   = 'AH1' | 'AH2' | 'AA1' | 'AA2' | 'UC' | 'V1' | 'V2' | 'C1' | 'I1'
+export type PronombrelClase = 'H' | 'UC' | 'V' | 'C'
+
+export const PRONOMBRE_CLASES: PronombrelClase[] = ['H', 'UC', 'V', 'C']
 export type Voz  = 'A' | 'M'
 export type Alin = 'AGT' | 'RCT'
 
